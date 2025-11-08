@@ -1,51 +1,60 @@
+# models/inventory_model.py
 from database.db_connection import get_connection
 
-def add_item(name, sku, category, quantity, price, threshold=5):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("""
-        INSERT INTO inventory (item_name, sku, category, quantity, price, threshold)
-        VALUES (?, ?, ?, ?, ?, ?)
-    """, (name, sku, category, quantity, price, threshold))
+def add_item(payload: dict) -> int:
+    conn = get_connection(); cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO items (name, sku, quantity, location) VALUES (?,?,?,?)",
+        (payload.get("name"), payload.get("sku"), int(payload.get("quantity", 0)), payload.get("location"))
+    )
     conn.commit()
+    iid = cur.lastrowid
     conn.close()
+    return iid
 
-def get_all_items():
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT id, item_name, sku, category, quantity, price FROM inventory")
+def update_item(item_id: int, payload: dict) -> bool:
+    fields, vals = [], []
+    for k in ("name", "sku", "quantity", "location"):
+        if k in payload and payload[k] is not None:
+            fields.append(f"{k}=?")
+            vals.append(payload[k])
+    if not fields:
+        return False
+    vals.append(item_id)
+    conn = get_connection(); cur = conn.cursor()
+    cur.execute(f"UPDATE items SET {', '.join(fields)} WHERE id = ?", vals)
+    conn.commit()
+    ok = cur.rowcount > 0
+    conn.close()
+    return ok
+
+def delete_item(item_id: int) -> bool:
+    conn = get_connection(); cur = conn.cursor()
+    cur.execute("DELETE FROM items WHERE id = ?", (item_id,))
+    conn.commit()
+    ok = cur.rowcount > 0
+    conn.close()
+    return ok
+
+def get_items(limit: int = 200):
+    conn = get_connection(); cur = conn.cursor()
+    cur.execute("SELECT id, name, sku, quantity, location FROM items ORDER BY id DESC LIMIT ?", (limit,))
     rows = cur.fetchall()
     conn.close()
-    return rows
+    return [dict(r) for r in rows]
 
-def search_items(query):
-    conn = get_connection()
-    cur = conn.cursor()
-    q = f"%{query.lower()}%"
+def search_items(q: str, limit: int = 200):
+    q = (q or "").strip()
+    if not q:
+        return get_items(limit)
+    like = f"%{q}%"
+    conn = get_connection(); cur = conn.cursor()
     cur.execute("""
-        SELECT id, item_name, sku, category, quantity, price
-        FROM inventory
-        WHERE LOWER(item_name) LIKE ? OR LOWER(sku) LIKE ? OR LOWER(category) LIKE ?
-    """, (q, q, q))
+        SELECT id, name, sku, quantity, location
+        FROM items
+        WHERE name LIKE ? OR sku LIKE ? OR COALESCE(location,'') LIKE ?
+        ORDER BY id DESC LIMIT ?
+    """, (like, like, like, limit))
     rows = cur.fetchall()
     conn.close()
-    return rows
-
-def update_item(item_id, name, category, quantity, price):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("""
-        UPDATE inventory
-        SET item_name = ?, category = ?, quantity = ?, price = ?
-        WHERE id = ?
-    """, (name, category, quantity, price, item_id))
-    conn.commit()
-    conn.close()
-
-
-def delete_item(item_id):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("DELETE FROM inventory WHERE id = ?", (item_id,))
-    conn.commit()
-    conn.close()
+    return [dict(r) for r in rows]
