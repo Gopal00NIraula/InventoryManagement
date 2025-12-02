@@ -4,8 +4,8 @@ from database.db_connection import get_connection
 def add_item(payload: dict) -> int:
     conn = get_connection(); cur = conn.cursor()
     cur.execute(
-        "INSERT INTO items (name, sku, quantity, location) VALUES (?,?,?,?)",
-        (payload.get("name"), payload.get("sku"), int(payload.get("quantity", 0)), payload.get("location"))
+        "INSERT INTO items (name, sku, quantity, price) VALUES (?,?,?,?)",
+        (payload.get("name"), payload.get("sku"), int(payload.get("quantity", 0)), float(payload.get("price", 0.0)))
     )
     conn.commit()
     iid = cur.lastrowid
@@ -14,7 +14,7 @@ def add_item(payload: dict) -> int:
 
 def update_item(item_id: int, payload: dict) -> bool:
     fields, vals = [], []
-    for k in ("name", "sku", "quantity", "location"):
+    for k in ("name", "sku", "quantity", "price"):
         if k in payload and payload[k] is not None:
             fields.append(f"{k}=?")
             vals.append(payload[k])
@@ -38,7 +38,7 @@ def delete_item(item_id: int) -> bool:
 
 def get_items(limit: int = 200):
     conn = get_connection(); cur = conn.cursor()
-    cur.execute("SELECT id, name, sku, quantity, location FROM items ORDER BY id DESC LIMIT ?", (limit,))
+    cur.execute("SELECT id, name, sku, quantity, price FROM items ORDER BY id DESC LIMIT ?", (limit,))
     rows = cur.fetchall()
     conn.close()
     return [dict(r) for r in rows]
@@ -50,11 +50,11 @@ def search_items(q: str, limit: int = 200):
     like = f"%{q}%"
     conn = get_connection(); cur = conn.cursor()
     cur.execute("""
-        SELECT id, name, sku, quantity, location
+        SELECT id, name, sku, quantity, price
         FROM items
-        WHERE name LIKE ? OR sku LIKE ? OR COALESCE(location,'') LIKE ?
+        WHERE name LIKE ? OR sku LIKE ?
         ORDER BY id DESC LIMIT ?
-    """, (like, like, like, limit))
+    """, (like, like, limit))
     rows = cur.fetchall()
     conn.close()
     return [dict(r) for r in rows]

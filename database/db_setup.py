@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS items (
     name TEXT NOT NULL,
     sku TEXT UNIQUE NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 0,
-    location TEXT
+    price REAL DEFAULT 0.0
 );
 """
 
@@ -63,6 +63,20 @@ def _migrate_users(conn):
     cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS ux_users_email ON users(email)")
     conn.commit()
 
+def _migrate_items(conn):
+    cur = conn.cursor()
+    # ensure table exists
+    cur.execute(BASE_ITEMS_SQL)
+    
+    cols = _existing_cols(cur, "items")
+    
+    # Add price column if it doesn't exist (migrate from location to price)
+    if "price" not in cols:
+        cur.execute("ALTER TABLE items ADD COLUMN price REAL DEFAULT 0.0")
+        print("[DB] Added 'price' column to items table")
+    
+    conn.commit()
+
 def setup_database():
     conn = get_connection()
     cur = conn.cursor()
@@ -74,6 +88,9 @@ def setup_database():
 
     # migrate users table to include any missing columns
     _migrate_users(conn)
+    
+    # migrate items table to include price column
+    _migrate_items(conn)
 
     conn.close()
     print("[DB] Setup/migration complete.")
