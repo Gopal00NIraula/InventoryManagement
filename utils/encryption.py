@@ -1,7 +1,5 @@
-# utils/encryption.py
 import os, base64, hashlib, hmac
 
-# Use PBKDF2-HMAC-SHA256 with random salt
 _ITER = 120_000
 
 def hash_password(password: str) -> str:

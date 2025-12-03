@@ -1,4 +1,3 @@
-# database/db_connection.py
 import sqlite3, os
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "inventory.db")

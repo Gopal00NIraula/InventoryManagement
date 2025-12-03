@@ -1,0 +1,18 @@
+# Python dependencies for Inventory Management System
+
+# Barcode and QR Code generation
+python-barcode>=0.15.1
+qrcode[pil]>=7.4.2
+pillow>=10.0.0
+
+# Excel support
+openpyxl>=3.1.0
+
+# Email support (built-in smtplib, but we need email types)
+# No additional packages needed - using built-in smtplib and email
+
+# GUI - Tkinter (built-in with Python)
+# No additional packages needed
+
+# Database - SQLite (built-in with Python)
+# No additional packages needed

@@ -1,7 +1,7 @@
 # views/auth_view.py
 import tkinter as tk
 from tkinter import ttk, messagebox
-from controllers.login_controller import login, create_manager_account
+from controllers.login_controller import login, create_admin_account
 
 class AuthPage(tk.Frame):
     """
@@ -235,7 +235,7 @@ class AuthPage(tk.Frame):
             "password": p1
         }
         try:
-            res = create_manager_account(form)
+            res = create_admin_account(form)
             uname = res["username"]
             messagebox.showinfo(
                 "Account created",

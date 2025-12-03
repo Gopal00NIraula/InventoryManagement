@@ -1,4 +1,3 @@
-# main.py
 from database.db_setup import setup_database
 from views.app import App
 
