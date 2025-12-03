@@ -1,70 +1,53 @@
 # GitHub Actions Build Guide
 
-This project is configured to automatically build executables for **Windows, Linux, and macOS** using GitHub Actions (completely free!).
+This project is configured to automatically build a **Windows executable** using GitHub Actions (completely free!).
 
-## How to Get Your Windows .exe (and other builds)
+## How to Get Your Windows .exe
 
 ### Step 1: Push to GitHub
 
 If you haven't already, push your code to GitHub:
 
 ```bash
-# Initialize git (if not already done)
-git init
-
 # Add all files
 git add .
 
 # Commit
-git commit -m "Add multi-platform build configuration"
-
-# Add your GitHub repository as remote
-git remote add origin https://github.com/Gopal00NIraula/InventoryManagement.git
+git commit -m "Update build configuration"
 
 # Push to main branch
-git push -u origin main
+git push origin main
 ```
 
 ### Step 2: GitHub Actions Automatically Builds
 
 Once you push, GitHub Actions will automatically:
 1. Build **Windows .exe** (on Windows runners)
-2. Build **Linux executable** (on Ubuntu runners)
-3. Build **macOS .app and .dmg** (on macOS runners)
-4. Build **Debian .deb package** (on Ubuntu runners)
+2. Package it as a downloadable artifact
 
-### Step 3: Download Your Builds
+### Step 3: Download Your Build
 
 1. Go to your GitHub repository: https://github.com/Gopal00NIraula/InventoryManagement
 2. Click on the **"Actions"** tab at the top
 3. Click on the latest workflow run
 4. Scroll down to **"Artifacts"** section
-5. Download:
-   - `InventoryManagement-Windows` - Contains the .exe file
-   - `InventoryManagement-Linux` - Contains the Linux executable
-   - `InventoryManagement-macOS` - Contains the .dmg installer
-   - `InventoryManagement-DEB` - Contains the .deb package
+5. Download **InventoryManagement-Windows** - Contains the .exe file
 
 ## Manual Trigger
 
 You can also manually trigger builds:
 
 1. Go to **Actions** tab
-2. Select **"Build Multi-Platform Executables"** workflow
+2. Select **"Build Windows Executable"** workflow
 3. Click **"Run workflow"** button
 4. Select branch (usually `main`)
 5. Click **"Run workflow"**
 
-Wait a few minutes, then download artifacts!
+Wait a few minutes, then download the artifact!
 
-## Build Times
+## Build Time
 
-Typical build times (all in parallel):
-- Windows: ~3-5 minutes
-- Linux: ~3-5 minutes  
-- macOS: ~5-7 minutes
-
-**Total wait time: ~5-7 minutes** (they run in parallel, not sequential!)
+Typical build time: **3-5 minutes**
 
 ## Artifact Retention
 
@@ -84,39 +67,24 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-GitHub Actions will automatically create a release with all executables attached!
+GitHub Actions will automatically create a release with the executable attached!
 
-## Alternative: Local Cross-Platform Building
+## Using the Windows .exe
 
-If you prefer to build Windows .exe locally from Ubuntu:
+Once downloaded:
+1. Extract `InventoryManagement.exe` from the zip file
+2. Copy to any Windows computer (no Python required!)
+3. Double-click to run
+4. First launch creates the `inventory.db` database
 
-### Option 1: Use Wine (Complex)
-```bash
-sudo apt-get install wine wine64
-# Then configure Wine with Windows Python... (complicated)
-```
-
-### Option 2: Use Docker
-```bash
-# Use a Windows container (requires WSL2 or specific Docker setup)
-# Not recommended due to complexity
-```
-
-### Option 3: Use a Windows VM
-```bash
-# Install VirtualBox
-# Create Windows VM
-# Build inside VM
-```
-
-**Recommendation:** Use GitHub Actions - it's free, automatic, and handles all platforms!
+**Note:** Windows Defender may show a warning (common with PyInstaller). Click "More info" → "Run anyway"
 
 ## Checking Build Status
 
-You'll see a badge in your README (optional):
+You can add a badge to your README (optional):
 
 ```markdown
-![Build Status](https://github.com/Gopal00NIraula/InventoryManagement/workflows/Build%20Multi-Platform%20Executables/badge.svg)
+![Build Status](https://github.com/Gopal00NIraula/InventoryManagement/workflows/Build%20Windows%20Executable/badge.svg)
 ```
 
 ## Troubleshooting
@@ -134,33 +102,21 @@ Check the Actions tab for error logs. Common issues:
 - Check that the workflow completed successfully
 - Artifacts expire after 30 days
 
-### Want to Test Before Pushing
-
-You can use [act](https://github.com/nektos/act) to run GitHub Actions locally:
-
-```bash
-# Install act
-curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
-
-# Run workflows locally
-act
-```
-
 ## Cost
 
 **GitHub Actions is 100% FREE for public repositories!**
 
 For private repositories:
 - 2,000 minutes/month free
-- Each build uses ~15 minutes total (5 min × 3 platforms)
-- = ~133 builds per month for free
+- Each build uses ~3-5 minutes
+- = ~400-600 builds per month for free
 
 ## Summary
 
 **Easiest workflow:**
 1. Push code to GitHub: `git push`
-2. Wait 5-7 minutes
+2. Wait 3-5 minutes
 3. Go to Actions tab
-4. Download your Windows .exe, Linux binary, and macOS .dmg!
+4. Download your Windows .exe!
 
-No need for Wine, Docker, or multiple computers! 🚀
+No need for a Windows computer or complex cross-compilation! 🚀
