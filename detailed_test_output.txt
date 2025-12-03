@@ -1,0 +1,121 @@
+test_get_audit_logs (test_audit_log_model.TestAuditLogModel.test_get_audit_logs)
+Test retrieving audit logs ... ok
+test_get_audit_logs_by_user (test_audit_log_model.TestAuditLogModel.test_get_audit_logs_by_user)
+Test retrieving audit logs for specific user ... ok
+test_log_action (test_audit_log_model.TestAuditLogModel.test_log_action)
+Test logging an action ... ok
+test_generate_barcode_number (test_barcode_utils.TestBarcodeUtils.test_generate_barcode_number)
+Test generating a barcode number ... ok
+test_generate_unique_barcodes (test_barcode_utils.TestBarcodeUtils.test_generate_unique_barcodes)
+Test that generated barcodes are unique ... ok
+test_create_customer (test_customer_model.TestCustomerModel.test_create_customer)
+Test creating a new customer ... ok
+test_delete_customer (test_customer_model.TestCustomerModel.test_delete_customer)
+Test deleting a customer ... ok
+test_get_customer (test_customer_model.TestCustomerModel.test_get_customer)
+Test retrieving a customer by ID ... ok
+test_search_customers (test_customer_model.TestCustomerModel.test_search_customers)
+Test searching customers ... ok
+test_update_customer (test_customer_model.TestCustomerModel.test_update_customer)
+Test updating customer information ... ok
+test_get_dashboard_stats (test_dashboard_stats.TestDashboardStats.test_get_dashboard_stats)
+Test getting dashboard statistics ... ok
+test_get_recent_activity (test_dashboard_stats.TestDashboardStats.test_get_recent_activity)
+Test getting recent activity ... ok
+test_is_email_configured (test_email_notifications.TestEmailNotifications.test_is_email_configured)
+Test checking if email is configured ... ok
+test_send_low_stock_alert (test_email_notifications.TestEmailNotifications.test_send_low_stock_alert)
+Test low stock alert function exists ... ok
+test_send_welcome_email (test_email_notifications.TestEmailNotifications.test_send_welcome_email)
+Test welcome email function exists ... ok
+test_hash_different_passwords_produce_different_hashes (test_encryption.TestEncryption.test_hash_different_passwords_produce_different_hashes)
+Test that different passwords produce different hashes ... ok
+test_hash_password (test_encryption.TestEncryption.test_hash_password)
+Test password hashing ... ok
+test_same_password_different_salts (test_encryption.TestEncryption.test_same_password_different_salts)
+Test that same password produces different hashes (due to random salt) ... ok
+test_verify_correct_password (test_encryption.TestEncryption.test_verify_correct_password)
+Test verifying a correct password ... ok
+test_verify_empty_password (test_encryption.TestEncryption.test_verify_empty_password)
+Test verifying empty password ... ok
+test_verify_incorrect_password (test_encryption.TestEncryption.test_verify_incorrect_password)
+Test verifying an incorrect password ... ok
+test_export_inventory_to_csv_empty_list (test_import_export.TestImportExport.test_export_inventory_to_csv_empty_list)
+Test exporting empty inventory list ... ok
+test_export_to_csv (test_import_export.TestImportExport.test_export_to_csv)
+Test exporting data to CSV ... ok
+test_import_from_csv (test_import_export.TestImportExport.test_import_from_csv)
+Test importing data from CSV ... ok
+test_import_from_csv_missing_headers (test_import_export.TestImportExport.test_import_from_csv_missing_headers)
+Test importing CSV with missing required headers ... ok
+test_add_item (test_inventory_model.TestInventoryModel.test_add_item)
+Test adding a new inventory item ... ok
+test_add_item_with_barcode (test_inventory_model.TestInventoryModel.test_add_item_with_barcode)
+Test adding item with barcode ... ok
+test_delete_item (test_inventory_model.TestInventoryModel.test_delete_item)
+Test deleting an item ... ok
+test_get_items (test_inventory_model.TestInventoryModel.test_get_items)
+Test retrieving all items ... ok
+test_search_items_by_name (test_inventory_model.TestInventoryModel.test_search_items_by_name)
+Test searching items by name ... ok
+test_search_items_by_sku (test_inventory_model.TestInventoryModel.test_search_items_by_sku)
+Test searching items by SKU ... ok
+test_update_item (test_inventory_model.TestInventoryModel.test_update_item)
+Test updating an item ... ok
+test_create_admin_account (test_login_controller.TestLoginController.test_create_admin_account)
+Test creating admin account ... ok
+test_login_failure (test_login_controller.TestLoginController.test_login_failure)
+Test failed login with wrong password ... ok
+test_login_success (test_login_controller.TestLoginController.test_login_success)
+Test successful login ... ok
+test_create_purchase_order (test_purchase_order_model.TestPurchaseOrderModel.test_create_purchase_order)
+Test creating a purchase order ... ok
+test_get_purchase_order (test_purchase_order_model.TestPurchaseOrderModel.test_get_purchase_order)
+Test retrieving a purchase order ... ok
+test_update_purchase_order_status (test_purchase_order_model.TestPurchaseOrderModel.test_update_purchase_order_status)
+Test updating purchase order status ... ok
+test_create_sales_order (test_sales_order_model.TestSalesOrderModel.test_create_sales_order)
+Test creating a sales order ... ok
+test_get_sales_order (test_sales_order_model.TestSalesOrderModel.test_get_sales_order)
+Test retrieving a sales order ... ok
+test_update_sales_order_status (test_sales_order_model.TestSalesOrderModel.test_update_sales_order_status)
+Test updating sales order status ... ok
+test_check_and_create_alerts (test_stock_alert_model.TestStockAlertModel.test_check_and_create_alerts)
+Test checking and creating stock alerts ... ok
+test_get_active_alerts (test_stock_alert_model.TestStockAlertModel.test_get_active_alerts)
+Test retrieving active alerts ... ok
+test_resolve_alert (test_stock_alert_model.TestStockAlertModel.test_resolve_alert)
+Test marking an alert as resolved ... ok
+test_create_supplier (test_supplier_model.TestSupplierModel.test_create_supplier)
+Test creating a new supplier ... ok
+test_delete_supplier (test_supplier_model.TestSupplierModel.test_delete_supplier)
+Test deleting a supplier ... ok
+test_get_supplier (test_supplier_model.TestSupplierModel.test_get_supplier)
+Test retrieving a supplier by ID ... ok
+test_search_suppliers (test_supplier_model.TestSupplierModel.test_search_suppliers)
+Test searching suppliers ... ok
+test_update_supplier (test_supplier_model.TestSupplierModel.test_update_supplier)
+Test updating supplier information ... ok
+test_authenticate_invalid_password (test_user_model.TestUserModel.test_authenticate_invalid_password)
+Test authentication with invalid password ... ok
+test_authenticate_nonexistent_user (test_user_model.TestUserModel.test_authenticate_nonexistent_user)
+Test authentication with non-existent username ... ok
+test_authenticate_valid_credentials (test_user_model.TestUserModel.test_authenticate_valid_credentials)
+Test authentication with valid credentials ... ok
+test_create_user (test_user_model.TestUserModel.test_create_user)
+Test creating a new user ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 2.285s
+
+OK
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.

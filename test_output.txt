@@ -1,0 +1,15 @@
+.....................................................
+----------------------------------------------------------------------
+Ran 53 tests in 2.255s
+
+OK
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
+[DB] Setup/migration complete.
