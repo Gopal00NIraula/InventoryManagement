@@ -7,7 +7,6 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('assets', 'assets'),
         ('config.py', '.'),
     ],
     hiddenimports=[
